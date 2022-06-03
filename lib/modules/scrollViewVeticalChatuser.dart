@@ -100,12 +100,10 @@ Widget scrollViewVetical(List chatUser, context) {
                             ],
                           ),
                           // ignore: prefer_const_constructors
-                          Container(
-                            child: SizedBox(
-                              child: Container(
-                                color: Colors.black,
-                                height: 2,
-                              ),
+                          SizedBox(
+                            child: Container(
+                              color: Colors.black,
+                              height: 2,
                             ),
                           )
                         ],
