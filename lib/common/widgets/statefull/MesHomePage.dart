@@ -1,10 +1,13 @@
-
+import 'package:chanllenge_3/models/navigationbar_item.dart';
+import 'package:chanllenge_3/modules/scrollViewVeticalChatuser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:chanllenge_3/modules/scrollViewItemHorizontal.dart';
 import 'package:chanllenge_3/themes/app_assets.dart';
 import 'package:chanllenge_3/themes/app_colors.dart';
 import 'package:chanllenge_3/themes/app_styles.dart';
+
 class MesHomePage extends StatefulWidget {
   const MesHomePage({Key? key}) : super(key: key);
 
@@ -62,42 +65,27 @@ class _HomePageState extends State<MesHomePage> {
         selectedItemColor: Colors.amber[800],
         currentIndex: _selectedIndex,
         iconSize: 30,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/icons/Home.png'),
-            ),
-            backgroundColor: AppColors.navigationColor,
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/icons/streams.png'),
-            ),
-            label: 'Streams',
-            backgroundColor: AppColors.navigationColor,
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/icons/message.png'),
-            ),
-            label: 'Messages',
-            backgroundColor: AppColors.navigationColor,
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/icons/Notification.png'),
-            ),
-            label: 'Notifications',
-            backgroundColor: AppColors.navigationColor,
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/icons/profile.png'),
-            ),
-            label: 'Profiles',
-            backgroundColor: AppColors.navigationColor,
-          ),
+        items: <BottomNavigationBarItem>[
+          button_navigation(
+              iconbar: 'assets/icons/Home.png',
+              label: 'Home',
+              color: AppColors.navigationColor),
+          button_navigation(
+              iconbar: 'assets/icons/streams.png',
+              label: 'Stream',
+              color: AppColors.navigationColor),
+          button_navigation(
+              iconbar: 'assets/icons/message.png',
+              label: 'Message',
+              color: AppColors.navigationColor),
+          button_navigation(
+              iconbar: 'assets/icons/Notification.png',
+              label: 'Notification',
+              color: AppColors.navigationColor),
+          button_navigation(
+              iconbar: 'assets/icons/profile.png',
+              label: 'Profile',
+              color: AppColors.navigationColor),
         ],
       ),
     );
@@ -153,171 +141,18 @@ class _HomePageState extends State<MesHomePage> {
               height: 1,
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: _user.isNotEmpty
-                ? Row(
-                    children: List.generate(_user.length, (index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, bottom: 18, left: 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(bottom: 9),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    height: 60,
-                                    width: 60,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            image: NetworkImage(_user[index]
-                                                ['picture']['medium']),
-                                            fit: BoxFit.cover)),
-                                  ),
-                                  _user[index]['status'].toString() == 'online'
-                                      ? Positioned(
-                                          top: 45,
-                                          left: 42,
-                                          child: Container(
-                                            width: 15,
-                                            height: 15,
-                                            decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                  color: AppColors.textColor,
-                                                  width: 2.5),
-                                            ),
-                                          ),
-                                        )
-                                      : Container()
-                                ],
-                              ),
-                            ),
-                            Text(
-                              _user[index]['name'].toString(),
-                              style: AppStyles.h1,
-                            )
-                          ],
-                        ),
-                      );
-                    }),
-                  )
-                : Container(),
-          ),
+          ScrollViewHorizontal(_user),
           Container(
             color: Colors.black,
             child: const SizedBox(
               height: 2,
             ),
           ),
-          Container(
-              height: 400,
-              padding: const EdgeInsets.only(left: 20),
-              child: ListView(
-                children: List.generate(
-                    _chat.length,
-                    (index) => Row(
-                          children: [
-                            Column(
-                              children: [
-                                SizedBox(
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        height: 60,
-                                        width: 60,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                image: NetworkImage(_chat[index]
-                                                        ['user']['picture']
-                                                    ['medium']),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                      _chat[index]['unread_count'] > 0
-                                          ? Positioned(
-                                              top: 40,
-                                              left: 39,
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.pink,
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: AppColors.textColor,
-                                                      width: 1),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                      '${_chat[index]['unread_count']}'),
-                                                ),
-                                              ),
-                                            )
-                                          : Container()
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 10),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width - 130,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          '${_chat[index]['user']['name']}',
-                                          style: AppStyles.h2,
-                                        ),
-                                        Text(
-                                          '${_chat[index]['created_at'].toString().split(':')[1]} '
-                                          ': ${_chat[index]['created_at'].toString().split(':')[2].split('.')[0]}',
-                                          style: AppStyles.h2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      padding: const EdgeInsets.only(
-                                          bottom: 20, top: 20),
-                                      child: Text(
-                                        '${_chat[index]['text']}',
-                                        style: AppStyles.h2,
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                    Container(
-                                      color: Colors.black,
-                                      child: SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width -
-                                                150,
-                                        height: 1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        )),
-              ))
+          scrollViewVetical(_chat,context)
         ],
       ),
     );
   }
+
+
 }
