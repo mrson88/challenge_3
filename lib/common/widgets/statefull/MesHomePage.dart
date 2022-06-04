@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:chanllenge_3/modules/scrollViewItemHorizontal.dart';
-import 'package:chanllenge_3/themes/app_assets.dart';
+
 import 'package:chanllenge_3/themes/app_colors.dart';
-import 'package:chanllenge_3/themes/app_styles.dart';
+
 
 class MesHomePage extends StatefulWidget {
   const MesHomePage({Key? key}) : super(key: key);
@@ -141,18 +141,16 @@ class _HomePageState extends State<MesHomePage> {
               height: 1,
             ),
           ),
-          ScrollViewHorizontal(_user),
+          scrollViewHorizontal(_user),
           Container(
             color: Colors.black,
             child: const SizedBox(
               height: 2,
             ),
           ),
-          scrollViewVetical(_chat,context)
+          scrollViewVetical(_chat, context)
         ],
       ),
     );
   }
-
-
 }

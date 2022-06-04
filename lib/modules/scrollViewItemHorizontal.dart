@@ -5,7 +5,7 @@ import 'package:chanllenge_3/themes/app_colors.dart';
 
 import 'package:chanllenge_3/themes/app_styles.dart';
 
-SingleChildScrollView ScrollViewHorizontal(List user) {
+SingleChildScrollView scrollViewHorizontal(List user) {
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
     child: user.isNotEmpty

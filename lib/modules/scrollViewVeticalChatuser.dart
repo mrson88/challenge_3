@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:chanllenge_3/themes/app_colors.dart';
 
@@ -7,8 +6,16 @@ import 'package:chanllenge_3/themes/app_styles.dart';
 
 Widget scrollViewVetical(List chatUser, context) {
   final Size size = MediaQuery.of(context).size;
+  String hour(int index) {
+    return chatUser[index]['created_at'].toString().split(':')[1];
+  }
+
+  String minute(int index) {
+    return chatUser[index]['created_at'].toString().split(':')[2].split('.')[0];
+  }
+
   return Container(
-    padding: EdgeInsets.only(left: 15),
+    padding: const EdgeInsets.only(left: 15),
     height: 400,
     child: ListView(
         children: List.generate(
@@ -74,8 +81,11 @@ Widget scrollViewVetical(List chatUser, context) {
                               Container(
                                 margin: const EdgeInsets.only(right: 15),
                                 child: Text(
-                                  '${chatUser[index]['created_at'].toString().split(':')[1]} '
-                                  ': ${chatUser[index]['created_at'].toString().split(':')[2].split('.')[0]}',
+                                  int.parse(hour(index = index)) < 12
+                                      ? '${hour(index = index)} '
+                                          ': ${minute(index = index)} AM'
+                                      : '0${int.parse(hour(index = index)) - 12} '
+                                          ': ${minute(index = index)} PM',
                                   style: AppStyles.h2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -86,8 +96,9 @@ Widget scrollViewVetical(List chatUser, context) {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
+                                padding:
+                                    const EdgeInsets.only(right: 10, left: 15),
                                 width: size.width - 100,
-                                margin: const EdgeInsets.only(left: 15),
                                 child: Text(
                                   '${chatUser[index]['text']}',
                                   style: AppStyles.h2,
