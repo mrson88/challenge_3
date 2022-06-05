@@ -7,9 +7,9 @@ import 'package:chanllenge_3/modules/scrollViewItemHorizontal.dart';
 
 import 'package:chanllenge_3/themes/app_colors.dart';
 
-
 class MesHomePage extends StatefulWidget {
   const MesHomePage({Key? key}) : super(key: key);
+  static String id = 'Message_HomePage';
 
   @override
   State<MesHomePage> createState() => _HomePageState();
@@ -100,7 +100,7 @@ class _HomePageState extends State<MesHomePage> {
             children: [
               TextButton(
                 onPressed: () => setState(() {
-                  readJson();
+                  Navigator.pop(context);
                   // print(_user);
                 }),
                 child: const Icon(
@@ -148,7 +148,7 @@ class _HomePageState extends State<MesHomePage> {
               height: 2,
             ),
           ),
-          scrollViewVetical(_chat, context)
+          scrollViewVertical(_chat, context)
         ],
       ),
     );
