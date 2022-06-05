@@ -148,7 +148,7 @@ class _HomePageState extends State<MesHomePage> {
               height: 2,
             ),
           ),
-          scrollViewVertical(_chat, context)
+          scrollViewVetical(_chat, context)
         ],
       ),
     );
